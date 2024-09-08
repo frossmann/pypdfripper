@@ -1,0 +1,11 @@
+name: pypdfripper
+channels: 
+  - conda-forge
+dependencies:
+  - pillow
+  - numpy
+  - matplotlib
+  - pynput
+  - jupyter
+  - click
+  - tqdm
