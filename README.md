@@ -51,7 +51,7 @@ python rip.py --start 10 --stop 20
 
 
 ### 2. Joining: `join.py`
-This function crops and merges the screenshots captured by `rip.py` into an output PDF. The outputted file is by default in black and white,
+This function crops and merges the screenshots captured by `rip.py` into an output PDF. The output is black and white by default but can be changed to color with `--color` flag.
 
 1. Run `join.py` from the command line. For help: `python join.py --help`
 
