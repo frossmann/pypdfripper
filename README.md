@@ -1,4 +1,4 @@
-# pypdfripper
+# `pypdfripper`
 
 Command line tool to rip documents from PDF viewers. 
 
@@ -77,3 +77,6 @@ python join.py screenshots --color True
 
 3. Screenshots generated from `rip.py` will be cropped, merged and saved into an output PDF in the current folder. 
 
+## Limitations
+
+`pypdfripper` uses the python library [&nearr; `pynput`](https://pynput.readthedocs.io/en/latest/) for remote key and mouse inputs, and a discussion for platform limitations can be found [&nearr; here](https://pynput.readthedocs.io/en/latest/limitations.html). 
