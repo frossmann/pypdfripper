@@ -43,7 +43,7 @@ def queue_files(source_folder):
     """Returns  a queue of filenames to load, sorted by page number.
     (Expects the file stem to be named as  'file_XX`)."""
 
-    source_folder = Path(source_folder)
+    source_folder = Path.cwd() / source_folder
 
     filenames = [f for f in source_folder.glob("*.png")]
 
@@ -73,7 +73,7 @@ def main(source_folder, output_name, color):
 
     Options:
     - output_name: Filename of merged PDF
-    - color: Flag, save in color (True) or Black and White (False - default)
+    - color: Flag, save in color (True) or Black and White (False: default)
     """
 
     print("Loading images...")
@@ -86,12 +86,21 @@ def main(source_folder, output_name, color):
 
     print("Cropping...")
     cropped_images = []
-    for image in tqdm(images):
+    for ii, image in enumerate(tqdm(images)):
         if color:
-            cropped_images.append(crop_image(image, extent))
+            cropped_image = crop_image(image.convert("RGB"), extent)
         else:
             # * convert("L") to B/W
-            cropped_images.append(crop_image(image.convert("L"), extent))
+            cropped_image = crop_image(image.convert("L"), extent)
+
+        cropped_images.append(cropped_image)
+
+        # uncomment to save individual pages:
+        # cropped_image.save(
+        #     str(Path(source_folder) / f"page_{ii +  1}.pdf"),
+        #     "PDF",
+        #     resolution=100.0,
+        # )
 
     print("Collating and saving...")
     cropped_images[0].save(

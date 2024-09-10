@@ -16,20 +16,21 @@ from tqdm import tqdm
 @click.option("--wait", default=5, show_default=True)
 def main(start, stop, wait):
     """
-    Function to rip pages from eTextbook readers by iteratively clicking
+    Function to rip pages from document readers by iteratively clicking
     the page input box, inputting page numbers (in ascending order), and
     taking a screenshot after a 5 second startup_delay.
 
-    Screenshots are labeled `page_XXX` and can be cropped and merged using `join.py`.
+    Screenshots are labeled `page_XX` and can be cropped and merged using `join.py`.
     """
 
     print("Initializing...")
     # preliminaries:
     startup_delay = 10
     page_nums = np.arange(int(start), int(stop) + 1, 1)
+    num_format = len(str(page_nums[-1]))
 
     # make a folder for screenshots:
-    output_folder = Path("./screenshots")
+    output_folder = Path.cwd() / "screenshots"
     output_folder.mkdir(parents=True, exist_ok=True)
 
     # initiate new controls
@@ -71,7 +72,8 @@ def main(start, stop, wait):
 
         # take a screenshot and save it:
         screenshot = ImageGrab.grab()
-        screenshot.save(f"screenshots/page_{page_num}.png")
+        filename = "page_" + str(page_num).zfill(num_format) + ".png"
+        screenshot.save(str(output_folder / filename))
 
     print("Done!")
 
